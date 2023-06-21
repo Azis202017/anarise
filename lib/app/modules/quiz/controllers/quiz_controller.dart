@@ -6,6 +6,8 @@ import '../../../shared/services/quiz_service.dart';
 class QuizController extends GetxController {
   bool isLoading = true;
   String id = Get.arguments['id'];
+  String foto = Get.arguments['foto'];
+
   List<QuizModel> quiz = [];
   @override
   void onInit() {

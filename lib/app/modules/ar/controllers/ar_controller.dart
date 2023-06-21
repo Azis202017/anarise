@@ -4,15 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_jigsaw_puzzle/flutter_jigsaw_puzzle.dart';
 import 'package:get/get.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../data/model/detail_materi_model.dart';
 import '../../../shared/services/detail_materi_service.dart';
 
-class ArController extends GetxController  {
+class ArController extends GetxController {
   InAppWebViewController? webViewController;
   String id = Get.arguments['id'];
-   String urlAudio = Get.arguments['urlAudio'];
-    final puzzleKey = GlobalKey<JigsawWidgetState>();
+  String urlAudio = Get.arguments['urlAudio'];
+  final puzzleKey = GlobalKey<JigsawWidgetState>();
   int index = 0;
   void materi() {
     index = 0;
@@ -29,20 +30,23 @@ class ArController extends GetxController  {
     update();
   }
 
+  final List<YoutubePlayerController> controllers = [];
+  OverlayEntry? overlayEntry;
   bool isLoading = true;
   DetailMateriModel? detailMateri;
   @override
   void onInit() {
     super.onInit();
+    
     fetchDetailMateri();
   }
 
   void fetchDetailMateri() async {
-    detailMateri = await DetailMateriService()
-        .getDetailMateri(id: id);
+    detailMateri = await DetailMateriService().getDetailMateri(id: id);
     isLoading = false;
     update();
   }
+
   final player = AudioPlayer();
   Future<void> init() async {
     // Inform the operating system of our app's audio attributes etc.
@@ -62,5 +66,5 @@ class ArController extends GetxController  {
     } catch (e) {
       throw Exception(e);
     }
-}
+  }
 }

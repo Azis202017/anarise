@@ -116,6 +116,7 @@ class DetailCoursesView extends GetView<DetailCoursesController> {
                           onTap: () {
                             Get.toNamed(Routes.QUIZ, arguments: {
                               'id': controller.detailMateri!.id,
+                              'foto': controller.detailMateri!.fileUrl
                             });
                           },
                         ),

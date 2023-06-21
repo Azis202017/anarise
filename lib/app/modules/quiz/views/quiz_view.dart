@@ -45,6 +45,7 @@ class QuizView extends GetView<QuizController> {
                     ),
                     Column(
                         children: controller.quiz.map((data) {
+                          
                       return GestureDetector(
                         onTap: () {
                           Get.toNamed(Routes.QUIZ_DETAIL,
@@ -52,7 +53,7 @@ class QuizView extends GetView<QuizController> {
                         },
                         child: QuizCardWidget(
                           image:
-                              'https://res.cloudinary.com/dkkga3pht/image/upload/v1686323666/Isolation_Mode_wxgpoz.png',
+                              controller.foto,
                           title: '${data.type}',
                           description: '${data.description}',
                         ),

@@ -16,6 +16,7 @@ class SummaryView extends GetView<SummaryController> {
     return GetBuilder<SummaryController>(builder: (_) {
       return Scaffold(
         appBar: Header(
+          title: '${controller.title} summary',
           leading: SizedBox(
             width: 40,
             height: 40,
@@ -31,17 +32,19 @@ class SummaryView extends GetView<SummaryController> {
               },
             ),
           ),
-          title: '${controller.title} summary',
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 20.0, right: 20),
+              padding: const EdgeInsets.only(
+                left: 20.0,
+                right: 20,
+              ),
               child: InputHeader(text: 'Belajar  ${controller.title}'),
             ),
             IndexedStack(
-              index: controller.currentIndex,
+              index: controller.index,
               children: controller.summary.map((data) {
                 return FlipCardWidget(
                   image: data.front!,
@@ -52,48 +55,24 @@ class SummaryView extends GetView<SummaryController> {
             Padding(
               padding: const EdgeInsets.only(
                 left: 20.0,
-                top: 16,
-                right: 20,
-              ),
-              child: LinearProgressIndicator(
-                value: controller.progress,
-                minHeight: 5,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 20.0,
-                top: 16,
                 right: 20,
               ),
               child: Text(
-                  '${controller.currentIndex}/${controller.totalElements} '),
+                  '${controller.index }/${controller.totalElements} '),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                left: 20.0,
-                right: 20,
-                top: 16,
-              ),
+              padding: const EdgeInsets.only(left: 20.0, right: 20.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  controller.index > 0
+                      ? OutlinedButton(
+                          onPressed: controller.back,
+                          child: const Text('Kembali'),
+                        )
+                      : const SizedBox(),
                   ElevatedButton(
-                    onPressed: controller.currentIndex > 0
-                        ? () {
-                            controller
-                                .setCurrentIndex(controller.currentIndex - 1);
-                          }
-                        : null,
-                    child: const Text('Previous'),
-                  ),
-                  const SizedBox(width: 16.0),
-                  ElevatedButton(
-                    onPressed: () {
-                      controller.setCurrentIndex(controller.currentIndex + 1);
-                    },
-                    child: const Text('Next'),
-                  ),
+                      onPressed: controller.next, child: const Text('Next'))
                 ],
               ),
             ),
