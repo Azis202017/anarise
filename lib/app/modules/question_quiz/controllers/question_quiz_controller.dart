@@ -102,17 +102,14 @@ class QuestionQuizController extends GetxController {
     data = json.decode(response.body)['data']['score'];
     message = json.decode(response.body)['data']['message'];
 
-    print(response.body);
     if (response.statusCode == 200) {
       Get.toNamed(Routes.QUIZ_SCORE, arguments : {
         'score' : data,
         'message':message,
       });
       // Answers submitted successfully
-      print('Answers submitted successfully');
     } else {
       // Failed to submit answers, handle error
-      print('Failed to submit answers');
     }
   }
 

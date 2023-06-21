@@ -7,7 +7,7 @@ import '../../constant/api_url.dart';
 import '../../data/model/detail_materi_model.dart';
 
 class DetailMateriService {
-  Future<DetailMateriModel?> getDetailMateri({required String id}) async {
+  Future<DetailMateriModel?> getDetailMateri({ String? id}) async {
     final storage = GetStorage();
     try {
       Uri uri = Uri.parse('$apiUrl/material/$id');

@@ -7,11 +7,11 @@ import '../../constant/api_url.dart';
 import '../../data/model/quiz_model.dart';
 
 class QuizService {
-  Future<List<QuizModel>> fetchQuestion() async {
+  Future<List<QuizModel>> fetchQuestion({String? id}) async {
 
     try {
       final storage = GetStorage();
-      Uri uri = Uri.parse('$apiUrl/quiz');
+      Uri uri = Uri.parse('$apiUrl/quiz?material_id=$id');
       http.Response response = await http.get(
         uri,
         headers: {
@@ -19,7 +19,6 @@ class QuizService {
               'Bearer ${storage.read("token")}',
         },
       );
-      print(response.body);
       if (response.statusCode == 200) {
         List? data =
             (json.decode(response.body) as Map<String, dynamic>)['data'];

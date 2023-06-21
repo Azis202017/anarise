@@ -101,8 +101,9 @@ class DetailCoursesView extends GetView<DetailCoursesController> {
                           subtitle:
                               '${controller.detailMateri!.videos!.length} Materi Video | AR view | Pembelajaran Kinestetik',
                           onTap: () {
-                            Get.toNamed(Routes.AR, arguments : {
-                              'id' : controller.detailMateri!.id,
+                            Get.toNamed(Routes.AR, arguments: {
+                              'id': controller.detailMateri!.id,
+                              'urlAudio' : controller.detailMateri!.audioUrl 
                             });
                           },
                         ),
@@ -110,9 +111,12 @@ class DetailCoursesView extends GetView<DetailCoursesController> {
                           image:
                               'https://res.cloudinary.com/dkkga3pht/image/upload/v1686496136/Frame_160_1_zfrdx0.png',
                           title: 'Quiz ',
-                          subtitle: '20 Soal Quiz',
+                          subtitle:
+                              '${controller.detailMateri!.quiz!.length} Soal Quiz',
                           onTap: () {
-                            Get.toNamed(Routes.QUIZ);
+                            Get.toNamed(Routes.QUIZ, arguments: {
+                              'id': controller.detailMateri!.id,
+                            });
                           },
                         ),
                         ListMetode(

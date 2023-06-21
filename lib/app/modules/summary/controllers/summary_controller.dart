@@ -59,7 +59,6 @@ class SummaryController extends GetxController {
 
   void fetchSummary() async {
     summary = await SummaryService().summaryModel();
-    print(summary);
     update();
   }
 }

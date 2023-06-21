@@ -5,18 +5,18 @@ import '../../../shared/services/quiz_service.dart';
 
 class QuizController extends GetxController {
   bool isLoading = true;
+  String id = Get.arguments['id'];
   List<QuizModel> quiz = [];
   @override
   void onInit() {
-    // TODO: implement onInit
+    // 
     fetchAllQuiz();
     super.onInit();
   }
 
   void fetchAllQuiz()async  {
-    quiz = await QuizService().fetchQuestion();
+    quiz = await QuizService().fetchQuestion(id: id);
     isLoading = false;
     update();
-    print(quiz);
   }
 }

@@ -24,7 +24,6 @@ class DiscussionRoomDetailController extends GetxController {
   }
 
   void postAnswerDiscussion() async {
-    print(id);
     bool isReplySuccess = await DiscussionService().postAnswerDiscussion(
       discussionId: id,
       title: detailModel?.title ?? "student reply",

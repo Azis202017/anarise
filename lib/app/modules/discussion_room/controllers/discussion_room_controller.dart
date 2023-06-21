@@ -8,14 +8,12 @@ class DiscussionRoomController extends GetxController {
   bool isLoading = true;
   @override
   void onInit() {
-    // TODO: implement onInit
     fetchListDiscussion();
     super.onInit();
   }
 
   void fetchListDiscussion() async {
     listDiscussion = await DiscussionService().fetchDiscussionData();
-    print(listDiscussion);
     isLoading = false;
     update();
   }

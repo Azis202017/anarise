@@ -18,7 +18,6 @@ class DiscussionService {
               'Bearer ${storage.read('token')}',
         },
       );
-      print(response.body);
       if (response.statusCode == 200) {
         List? data =
             (json.decode(response.body) as Map<String, dynamic>)['data'];
@@ -73,7 +72,6 @@ class DiscussionService {
         headers: headers,
         body: body
       );
-      print(response.body);
       if(response.statusCode == 200) {
         return true;
       }

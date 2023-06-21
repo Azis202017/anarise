@@ -16,7 +16,6 @@ class ProfileUserService {
 
       http.Response response = await http.get(uri,
           headers: {'Authorization': 'Bearer ${storage.read('token')}'});
-      print(response.body);
       return ProfileUserModel.fromJson(json.decode(response.body)['data']);
     } catch (e) {
       throw Exception(e);

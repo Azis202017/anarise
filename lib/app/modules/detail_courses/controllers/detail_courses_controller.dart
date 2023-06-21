@@ -5,7 +5,7 @@ import '../../../shared/services/detail_materi_service.dart';
 
 class DetailCoursesController extends GetxController {
   bool isLoading = true;
-  String id = Get.arguments['id'];
+  String? id = Get.arguments['id'];
   DetailMateriModel? detailMateri;
   @override
   void onInit() {
