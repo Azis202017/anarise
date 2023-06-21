@@ -206,7 +206,10 @@ class ArView extends GetView<ArController> with WidgetsBindingObserver {
                                           'Lihat Summary Materi',
                                         ),
                                         onPressed: () {
-                                          Get.toNamed(Routes.SUMMARY);
+                                          Get.toNamed(Routes.SUMMARY,arguments : {
+                                            'id': controller.detailMateri!.id,
+                                            'title' : controller.detailMateri!.title, 
+                                          });
                                         },
                                       ),
                                     ],

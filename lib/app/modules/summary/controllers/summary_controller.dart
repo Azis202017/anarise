@@ -7,6 +7,8 @@ import '../../../shared/services/summary_service.dart';
 class SummaryController extends GetxController {
   FlipCardController flipController = FlipCardController();
   List<SummaryModel> summary = [];
+  String id = Get.arguments['id'];
+  String title = Get.arguments['title'];
 
   @override
   void onInit() {
@@ -14,11 +16,26 @@ class SummaryController extends GetxController {
     super.onInit();
   }
 
-  int index = 0;
-  SummaryModel? elementToTrack; //
+  int currentIndex = 0;
   int totalElements = 0;
-  int elementIndex = 0;
-  double progress = 0;
+
+  double get progress => currentIndex / totalElements;
+
+  void setCurrentIndex(int index) {
+    if(index > totalElements){
+      return;
+    }
+    currentIndex = index;
+    update();
+  }
+
+  void setTotalElements(int total) {
+    totalElements = total;
+    update();
+  }
+
+  SummaryModel? elementToTrack; //
+
   void skip() {
     // index = elements.length -1;
     // elementToTrack = elements[index];
@@ -29,36 +46,8 @@ class SummaryController extends GetxController {
     // update();
   }
 
-  void next() {
-    if (index < totalElements) {
-      index++;
-      update();
-    } else if (index > totalElements) {
-      return;
-    }
-
-    elementToTrack = summary[index];
-    elementIndex = summary.indexOf(elementToTrack!);
-    progress = elementIndex / (totalElements - 1);
-    totalElements = summary.length - 1;
-
-    update();
-  }
-
-  void back() {
-    elementToTrack = summary[index];
-    elementIndex = summary.indexOf(elementToTrack!);
-    progress = elementIndex / (totalElements - 1);
-    totalElements = summary.length - 1;
-
-    if (index > 0) {
-      index--;
-      update();
-    }
-  }
-
   void fetchSummary() async {
-    summary = await SummaryService().summaryModel();
+    summary = await SummaryService().summaryModel(id: id);
     update();
   }
 }
