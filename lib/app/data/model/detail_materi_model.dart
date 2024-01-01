@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final detailMateriModel = detailMateriModelFromJson(jsonString);
+
 import 'dart:convert';
 
 DetailMateriModel detailMateriModelFromJson(String str) => DetailMateriModel.fromJson(json.decode(str));
@@ -15,13 +19,14 @@ class DetailMateriModel {
     String? arUrl;
     DateTime? createdAt;
     DateTime? updatedAt;
+    String? puzzleUrl;
     String? fileUrl;
     String? audioUrl;
     List<Discussion>? discussion;
     List<FlipCard>? flipCards;
     List<Video>? videos;
     Teacher? teacher;
-    List<dynamic>? quiz;
+    List<Quiz>? quiz;
 
     DetailMateriModel({
         this.id,
@@ -34,6 +39,7 @@ class DetailMateriModel {
         this.arUrl,
         this.createdAt,
         this.updatedAt,
+        this.puzzleUrl,
         this.fileUrl,
         this.audioUrl,
         this.discussion,
@@ -54,13 +60,14 @@ class DetailMateriModel {
         arUrl: json["ar_url"],
         createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
         updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+        puzzleUrl: json["puzzle_url"],
         fileUrl: json["file_url"],
         audioUrl: json["audio_url"],
         discussion: json["discussion"] == null ? [] : List<Discussion>.from(json["discussion"]!.map((x) => Discussion.fromJson(x))),
         flipCards: json["flip_cards"] == null ? [] : List<FlipCard>.from(json["flip_cards"]!.map((x) => FlipCard.fromJson(x))),
         videos: json["videos"] == null ? [] : List<Video>.from(json["videos"]!.map((x) => Video.fromJson(x))),
         teacher: json["teacher"] == null ? null : Teacher.fromJson(json["teacher"]),
-        quiz: json["quiz"] == null ? [] : List<dynamic>.from(json["quiz"]!.map((x) => x)),
+        quiz: json["quiz"] == null ? [] : List<Quiz>.from(json["quiz"]!.map((x) => Quiz.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
@@ -74,13 +81,14 @@ class DetailMateriModel {
         "ar_url": arUrl,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
+        "puzzle_url": puzzleUrl,
         "file_url": fileUrl,
         "audio_url": audioUrl,
         "discussion": discussion == null ? [] : List<dynamic>.from(discussion!.map((x) => x.toJson())),
         "flip_cards": flipCards == null ? [] : List<dynamic>.from(flipCards!.map((x) => x.toJson())),
         "videos": videos == null ? [] : List<dynamic>.from(videos!.map((x) => x.toJson())),
         "teacher": teacher?.toJson(),
-        "quiz": quiz == null ? [] : List<dynamic>.from(quiz!.map((x) => x)),
+        "quiz": quiz == null ? [] : List<dynamic>.from(quiz!.map((x) => x.toJson())),
     };
 }
 
@@ -157,6 +165,54 @@ class FlipCard {
         "back": back,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
+    };
+}
+
+class Quiz {
+    String? id;
+    String? materialId;
+    DateTime? createdAt;
+    DateTime? updatedAt;
+    String? title;
+    String? description;
+    String? type;
+    bool? isDone;
+    dynamic score;
+
+    Quiz({
+        this.id,
+        this.materialId,
+        this.createdAt,
+        this.updatedAt,
+        this.title,
+        this.description,
+        this.type,
+        this.isDone,
+        this.score,
+    });
+
+    factory Quiz.fromJson(Map<String, dynamic> json) => Quiz(
+        id: json["id"],
+        materialId: json["material_id"],
+        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+        title: json["title"],
+        description: json["description"],
+        type: json["type"],
+        isDone: json["is_done"],
+        score: json["score"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "material_id": materialId,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+        "title": title,
+        "description": description,
+        "type": type,
+        "is_done": isDone,
+        "score": score,
     };
 }
 

@@ -64,10 +64,12 @@ class Material {
     String? id;
     String? teacherId;
     String? title;
+    String? description;
     String? file;
     String? audio;
     String? qrCode;
     String? arUrl;
+    String? puzzleUrl;
     DateTime? createdAt;
     DateTime? updatedAt;
     String? fileUrl;
@@ -77,10 +79,12 @@ class Material {
         this.id,
         this.teacherId,
         this.title,
+        this.description,
         this.file,
         this.audio,
         this.qrCode,
         this.arUrl,
+        this.puzzleUrl,
         this.createdAt,
         this.updatedAt,
         this.fileUrl,
@@ -91,10 +95,12 @@ class Material {
         id: json["id"],
         teacherId: json["teacher_id"],
         title: json["title"],
+        description: json["description"],
         file: json["file"],
         audio: json["audio"],
         qrCode: json["qr_code"],
         arUrl: json["ar_url"],
+        puzzleUrl: json["puzzle_url"],
         createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
         updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
         fileUrl: json["file_url"],
@@ -105,10 +111,12 @@ class Material {
         "id": id,
         "teacher_id": teacherId,
         "title": title,
+        "description": description,
         "file": file,
         "audio": audio,
         "qr_code": qrCode,
         "ar_url": arUrl,
+        "puzzle_url": puzzleUrl,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
         "file_url": fileUrl,
@@ -122,6 +130,8 @@ class Reply {
     String? studentId;
     String? title;
     String? content;
+    String? teacherReply;
+    int? isReplied;
     DateTime? createdAt;
     DateTime? updatedAt;
     Teacher? student;
@@ -132,6 +142,8 @@ class Reply {
         this.studentId,
         this.title,
         this.content,
+        this.teacherReply,
+        this.isReplied,
         this.createdAt,
         this.updatedAt,
         this.student,
@@ -143,6 +155,8 @@ class Reply {
         studentId: json["student_id"],
         title: json["title"],
         content: json["content"],
+        teacherReply: json["teacher_reply"],
+        isReplied: json["is_replied"],
         createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
         updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
         student: json["student"] == null ? null : Teacher.fromJson(json["student"]),
@@ -154,6 +168,8 @@ class Reply {
         "student_id": studentId,
         "title": title,
         "content": content,
+        "teacher_reply": teacherReply,
+        "is_replied": isReplied,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
         "student": student?.toJson(),
@@ -165,7 +181,7 @@ class Teacher {
     String? userId;
     String? classId;
     String? fullname;
-    String? photo;
+    dynamic photo;
     DateTime? createdAt;
     DateTime? updatedAt;
     String? photoUrl;

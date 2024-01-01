@@ -14,6 +14,9 @@ class ProfileUserModel {
     String? role;
     DateTime? createdAt;
     DateTime? updatedAt;
+    dynamic totalMaterials;
+    dynamic totalStudents;
+    int? totalEvaluations;
     Student? student;
 
     ProfileUserModel({
@@ -22,6 +25,9 @@ class ProfileUserModel {
         this.role,
         this.createdAt,
         this.updatedAt,
+        this.totalMaterials,
+        this.totalStudents,
+        this.totalEvaluations,
         this.student,
     });
 
@@ -31,6 +37,9 @@ class ProfileUserModel {
         role: json["role"],
         createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
         updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+        totalMaterials: json["total_materials"],
+        totalStudents: json["total_students"],
+        totalEvaluations: json["total_evaluations"],
         student: json["student"] == null ? null : Student.fromJson(json["student"]),
     );
 
@@ -40,6 +49,9 @@ class ProfileUserModel {
         "role": role,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
+        "total_materials": totalMaterials,
+        "total_students": totalStudents,
+        "total_evaluations": totalEvaluations,
         "student": student?.toJson(),
     };
 }
@@ -54,6 +66,7 @@ class Student {
     DateTime? updatedAt;
     String? photoUrl;
     Class? studentClass;
+    LearningStyle? learningStyle;
 
     Student({
         this.id,
@@ -65,6 +78,7 @@ class Student {
         this.updatedAt,
         this.photoUrl,
         this.studentClass,
+        this.learningStyle,
     });
 
     factory Student.fromJson(Map<String, dynamic> json) => Student(
@@ -77,6 +91,7 @@ class Student {
         updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
         photoUrl: json["photo_url"],
         studentClass: json["class"] == null ? null : Class.fromJson(json["class"]),
+        learningStyle: json["learning_style"] == null ? null : LearningStyle.fromJson(json["learning_style"]),
     );
 
     Map<String, dynamic> toJson() => {
@@ -89,6 +104,47 @@ class Student {
         "updated_at": updatedAt?.toIso8601String(),
         "photo_url": photoUrl,
         "class": studentClass?.toJson(),
+        "learning_style": learningStyle?.toJson(),
+    };
+}
+
+class LearningStyle {
+    String? id;
+    String? name;
+    String? description;
+    String? label;
+    DateTime? createdAt;
+    DateTime? updatedAt;
+    String? laravelThroughKey;
+
+    LearningStyle({
+        this.id,
+        this.name,
+        this.description,
+        this.label,
+        this.createdAt,
+        this.updatedAt,
+        this.laravelThroughKey,
+    });
+
+    factory LearningStyle.fromJson(Map<String, dynamic> json) => LearningStyle(
+        id: json["id"],
+        name: json["name"],
+        description: json["description"],
+        label: json["label"],
+        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+        laravelThroughKey: json["laravel_through_key"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "description": description,
+        "label": label,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+        "laravel_through_key": laravelThroughKey,
     };
 }
 
