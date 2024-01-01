@@ -22,6 +22,9 @@ abstract class Routes {
   static const AR = _Paths.AR;
   static const QUIZ_DETAIL = _Paths.QUIZ_DETAIL;
   static const QUESTION_QUIZ = _Paths.QUESTION_QUIZ;
+  static const WELCOME_SCREEN = _Paths.WELCOME_SCREEN;
+  static const SPLASH_SCREEN = _Paths.SPLASH_SCREEN;
+  static const ISI_SURVEY = _Paths.ISI_SURVEY;
 }
 
 abstract class _Paths {
@@ -43,4 +46,7 @@ abstract class _Paths {
   static const AR = '/ar';
   static const QUIZ_DETAIL = '/quiz-detail';
   static const QUESTION_QUIZ = '/question-quiz';
+  static const WELCOME_SCREEN = '/welcome-screen';
+  static const SPLASH_SCREEN = '/splash-screen';
+  static const ISI_SURVEY = '/isi-survey';
 }

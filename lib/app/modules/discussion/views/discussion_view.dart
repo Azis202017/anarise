@@ -38,9 +38,9 @@ class DiscussionView extends GetView<DiscussionController> {
             children: [
               DiscussionCardWidget(
                 image:
-                    'https://res.cloudinary.com/dkkga3pht/image/upload/v1686323666/Isolation_Mode_wxgpoz.png',
-                description: 'Form diskusi pembahasan materi jantung',
-                title: 'Jantung',
+                    controller.image,
+                description: 'Form diskusi pembahasan ${controller.title}',
+                title: controller.title,
                 onPressed: controller.toDiscussionRoomView,
               ),
             ],

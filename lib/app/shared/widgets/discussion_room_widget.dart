@@ -78,7 +78,7 @@ class DiscussionRoomWidget extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      SizedBox(
+                     onPressed == null ?  const SizedBox():  SizedBox(
                         height: 47,
                         child: ElevatedButton(
                           onPressed: onPressed,

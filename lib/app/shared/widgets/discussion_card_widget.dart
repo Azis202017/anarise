@@ -28,7 +28,9 @@ class DiscussionCardWidget extends StatelessWidget {
           image: DecorationImage(
             image: NetworkImage(
               'https://res.cloudinary.com/dkkga3pht/image/upload/v1686321245/Group_39_rljqe3.png',
+              
             ),
+            fit: BoxFit.cover,
           ),
         ),
         child: Row(
@@ -43,51 +45,55 @@ class DiscussionCardWidget extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(
-                right: 8.0,
-                top: 4,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title ?? "",
-                    style: h2Bold.copyWith(color: Colors.white),
-                  ),
-                  const SizedBox(height: 9),
-                  SizedBox(
-                    width: 150,
-                    child: Text(
-                      description ?? "",
-                      style: tinyText.copyWith(
-                        color: Colors.white,
-                      ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  right: 8.0,
+                  top:16,
+                  left:24,
+                  bottom:24,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title ?? "",
+                      style: h2Bold.copyWith(color: Colors.white),
                     ),
-                  ),
-                  const SizedBox(height: 9),
-                  SizedBox(
-                    height: 26,
-                    width: 97,
-                    child: ElevatedButton(
-                      onPressed:onPressed,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: blueLight,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
+                    const SizedBox(height: 9),
+                    SizedBox(
+                      width: 150,
                       child: Text(
-                        'Lihat Diskusi',
+                        description ?? "",
                         style: tinyText.copyWith(
-                          color: blueNormal,
+                          color: Colors.white,
                         ),
                       ),
                     ),
-                  )
-                
-                ],
+                    const SizedBox(height: 9),
+                    SizedBox(
+                      height: 26,
+                      width: 97,
+                      child: ElevatedButton(
+                        onPressed:onPressed,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: blueLight,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: Text(
+                          'Lihat Diskusi',
+                          style: tinyText.copyWith(
+                            color: blueNormal,
+                          ),
+                        ),
+                      ),
+                    )
+                  
+                  ],
+                ),
               ),
             )
           ],

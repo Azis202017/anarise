@@ -13,14 +13,16 @@ class QuizDetailView extends GetView<QuizDetailController> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<QuizDetailController>(builder: (_) {
-      return SafeArea(
-        child: Scaffold(
-          backgroundColor: blueNormal,
-          body: controller.isLoading
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : SingleChildScrollView(
+      return controller.isLoading
+          ? const Material(
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            )
+          : SafeArea(
+              child: Scaffold(
+                backgroundColor: blueNormal,
+                body: SingleChildScrollView(
                   child: Container(
                     margin: const EdgeInsets.symmetric(
                       horizontal: 20,
@@ -68,65 +70,74 @@ class QuizDetailView extends GetView<QuizDetailController> {
                     ),
                   ),
                 ),
-          bottomNavigationBar: Container(
-            width: double.infinity,
-            margin: const EdgeInsets.only(
-              left: 20,
-              right: 20,
-              bottom: 77,
-            ),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: blueLight,
-              ),
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return CustomDialog(
-                        title: 'Apakah sudah siap mengerjakan ${controller.quizDetailModel!.type}?',
-                        subtitle:
-                            'Kalau sudah siap silahkan menekan tombol kerjakan kuis untuk mengerjakan kuis, kuis ini memakan waktu 15 menit',
-                        widget: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              width: double.infinity,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
+                bottomNavigationBar: Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.only(
+                    left: 20,
+                    right: 20,
+                    bottom: 77,
+                  ),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: blueLight,
+                    ),
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return CustomDialog(
+                              title:
+                                  'Apakah sudah siap mengerjakan ${controller.quizDetailModel!.type}?',
+                              subtitle:
+                                  'Kalau sudah siap silahkan menekan tombol kerjakan kuis untuk mengerjakan kuis, kuis ini memakan waktu 15 menit',
+                              widget: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const SizedBox(height: 20),
                                   SizedBox(
-                                    height: 40,
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        Get.toNamed(Routes.QUESTION_QUIZ,
-                                            arguments: {
-                                              'id' : controller.quizDetailModel!.id
-                                            },);
-                                      },
-                                      child:  Text(' kerjakan  ${controller.quizDetailModel!.type}'),
+                                    width: double.infinity,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        const SizedBox(height: 20),
+                                        SizedBox(
+                                          height: 40,
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              Get.toNamed(
+                                                Routes.QUESTION_QUIZ,
+                                                arguments: {
+                                                  'id': controller
+                                                      .quizDetailModel?.id ?? "",
+                                                  'type': controller
+                                                      .quizDetailModel?.type ?? "",
+                                                  'materialId' : controller.quizDetailModel?.material?.id,
+                                                },
+                                              );
+                                            },
+                                            child: Text(
+                                                ' kerjakan  ${controller.quizDetailModel!.type}'),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
+                                  const SizedBox(height: 18),
                                 ],
                               ),
-                            ),
-                            const SizedBox(height: 18),
-                          ],
-                        ),
-                      );
-                    });
-              },
-              child: Text(
-                'Kerjakan Quiz',
-                style: smallText.copyWith(
-                  color: blueNormal,
+                            );
+                          });
+                    },
+                    child: Text(
+                      'Kerjakan ${controller.quizDetailModel!.type}',
+                      style: smallText.copyWith(
+                        color: blueNormal,
+                      ),
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-        ),
-      );
+            );
     });
   }
 }

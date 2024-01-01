@@ -40,97 +40,108 @@ class DetailCoursesView extends GetView<DetailCoursesController> {
                     ),
                   ),
                 ),
-                body: SingleChildScrollView(
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: double.infinity,
-                          height: 349,
-                          child: Image.network(
-                            controller.detailMateri!.fileUrl!,
-                            fit: BoxFit.cover,
+                body: RefreshIndicator(
+                  onRefresh: () async {
+                    controller.fetchDetailMateri();
+                  },
+                  child: SingleChildScrollView(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: double.infinity,
+                            height: 349,
+                            child: Image.network(
+                              controller.detailMateri!.fileUrl!,
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 30),
-                        Text(
-                          '${controller.detailMateri!.title}',
-                          style: GoogleFonts.inter(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w600,
-                            color: blueNormal,
+                          const SizedBox(height: 30),
+                          Text(
+                            '${controller.detailMateri!.title}',
+                            style: GoogleFonts.inter(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600,
+                              color: blueNormal,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 16),
-                        ReadMoreText(
-                          textAlign: TextAlign.justify,
-                          '${controller.detailMateri!.description}',
-                          trimCollapsedText: 'Baca Selengkapnya',
-                          trimExpandedText: ' Tutup',
-                          style: GoogleFonts.inter(
-                            fontSize: 12,
-                            color: greyColor3,
+                          const SizedBox(height: 16),
+                          ReadMoreText(
+                            textAlign: TextAlign.justify,
+                            '${controller.detailMateri!.description}',
+                            trimCollapsedText: 'Baca Selengkapnya',
+                            trimExpandedText: ' Tutup',
+                            style: GoogleFonts.inter(
+                              fontSize: 12,
+                              color: greyColor3,
+                            ),
+                            trimLines: 3,
+                            colorClickableText: blueNormal,
+                            trimMode: TrimMode.Line,
                           ),
-                          trimLines: 3,
-                          colorClickableText: blueNormal,
-                          trimMode: TrimMode.Line,
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          '${controller.detailMateri?.teacher?.fullname}',
-                          style: body2Regular,
-                        ),
-                        const SizedBox(height: 30),
-                        Text(
-                          'Metode Belajar',
-                          style: GoogleFonts.inter(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w600,
-                            color: blueNormal,
+                          const SizedBox(height: 16),
+                          Text(
+                            '${controller.detailMateri?.teacher?.fullname}',
+                            style: body2Regular,
                           ),
-                        ),
-                        const SizedBox(height: 20),
-                        ListMetode(
-                          image:
-                              'https://res.cloudinary.com/dkkga3pht/image/upload/v1686496078/Frame_160_wwwvvz.png',
-                          title: 'Modul Materi Belajar',
-                          subtitle:
-                              '${controller.detailMateri!.videos!.length} Materi Video | AR view | Pembelajaran Kinestetik',
-                          onTap: () {
-                            Get.toNamed(Routes.AR, arguments: {
-                              'id': controller.detailMateri!.id,
-                              'urlAudio' : controller.detailMateri!.audioUrl 
-                            });
-                          },
-                        ),
-                        ListMetode(
-                          image:
-                              'https://res.cloudinary.com/dkkga3pht/image/upload/v1686496136/Frame_160_1_zfrdx0.png',
-                          title: 'Quiz ',
-                          subtitle:
-                              '${controller.detailMateri!.quiz!.length} Soal Quiz',
-                          onTap: () {
-                            Get.toNamed(Routes.QUIZ, arguments: {
-                              'id': controller.detailMateri!.id,
-                              'foto': controller.detailMateri!.fileUrl
-                            });
-                          },
-                        ),
-                        ListMetode(
-                          image:
-                              'https://res.cloudinary.com/dkkga3pht/image/upload/v1686496131/Frame_160_2_ol2v0l.png',
-                          title: 'Form Diskusi',
-                          subtitle:
-                              '${controller.detailMateri!.discussion!.length} Diskusi',
-                          onTap: () {
-                            Get.toNamed(Routes.DISCUSSION);
-                          },
-                        ),
-                      ],
+                          const SizedBox(height: 30),
+                          Text(
+                            'Metode Belajar',
+                            style: GoogleFonts.inter(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600,
+                              color: blueNormal,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          ListMetode(
+                            image:
+                                'https://res.cloudinary.com/dkkga3pht/image/upload/v1686496078/Frame_160_wwwvvz.png',
+                            title: 'Modul Materi Belajar',
+                            subtitle:
+                                '${controller.detailMateri!.videos!.length} Materi Video | AR view | Pembelajaran Kinestetik',
+                            onTap: () {
+                              Get.toNamed(Routes.AR, arguments: {
+                                'id': controller.detailMateri!.id,
+                                'urlAudio': controller.detailMateri!.audioUrl
+                              });
+                            },
+                          ),
+                          ListMetode(
+                            image:
+                                'https://res.cloudinary.com/dkkga3pht/image/upload/v1686496136/Frame_160_1_zfrdx0.png',
+                            title: 'Quiz ',
+                            subtitle:
+                                '${controller.detailMateri!.quiz!.length} Soal Quiz',
+                            onTap: () {
+                              Get.toNamed(Routes.QUIZ, arguments: {
+                                'id': controller.detailMateri!.id,
+                                'foto': controller.detailMateri!.fileUrl,
+                                'user_id': controller.userId,
+                              });
+                            },
+                          ),
+                          ListMetode(
+                            image:
+                                'https://res.cloudinary.com/dkkga3pht/image/upload/v1686496131/Frame_160_2_ol2v0l.png',
+                            title: 'Forum Diskusi',
+                            subtitle:
+                                '${controller.detailMateri!.discussion!.length} Diskusi',
+                            onTap: () {
+                              Get.toNamed(Routes.DISCUSSION, arguments: {
+                                'image': controller.detailMateri!.fileUrl,
+                                'title': controller.detailMateri!.title,
+                                'id': controller.detailMateri!.id,
+                              });
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

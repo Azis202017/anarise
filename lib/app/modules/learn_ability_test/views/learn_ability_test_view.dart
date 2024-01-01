@@ -14,12 +14,17 @@ class LearnAbilityTestView extends GetView<LearnAbilityTestController> {
     return Scaffold(
       appBar: AppBar(
         leading: Padding(
-          padding: const EdgeInsets.only(left:20,),
+          padding: const EdgeInsets.only(
+            left: 20,
+          ),
           child: IconButton(
             onPressed: () {
               Get.back();
             },
-            icon: const Icon(Icons.arrow_back_ios, color: blueNormal,),
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: blueNormal,
+            ),
           ),
         ),
         backgroundColor: Colors.white,
@@ -33,8 +38,10 @@ class LearnAbilityTestView extends GetView<LearnAbilityTestController> {
         ),
       ),
       body: InAppWebView(
-        initialUrlRequest:
-            URLRequest(url: Uri.parse('https://akupintar.id/tes-gaya-belajar')),
+        initialUrlRequest: URLRequest(
+          url: Uri.parse(
+              'https://larvaacademy.id/learning-style-test/${controller.id}'),
+        ),
       ),
     );
   }
