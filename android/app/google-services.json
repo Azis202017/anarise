@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "206437828690",
+    "project_id": "anarise-7c076",
+    "storage_bucket": "anarise-7c076.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:206437828690:android:460b29690591344f6d778b",
+        "android_client_info": {
+          "package_name": "com.anarise.anarise"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "206437828690-5d8ljlti9ghaimdh44b1nsjmm69hsm0u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsO_Hk5-r_GAY97dGtFJmqqQUhQz56zsI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "206437828690-5d8ljlti9ghaimdh44b1nsjmm69hsm0u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
