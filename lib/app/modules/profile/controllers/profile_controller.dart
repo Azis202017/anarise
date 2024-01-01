@@ -8,7 +8,7 @@ import '../../../shared/services/profile_user_service.dart';
 import '../../../shared/theme/color_app.dart';
 
 class ProfileController extends GetxController {
-  late ProfileUserModel user;
+  ProfileUserModel? user;
   bool isLoading = true;
   @override
   void onReady() {
@@ -33,7 +33,7 @@ class ProfileController extends GetxController {
       margin: EdgeInsets.zero,
       snackPosition: SnackPosition.BOTTOM,
     );
-      Get.back();
+    Get.back();
     final GetStorage storage = GetStorage();
     bool logout = await ProfileUserService().logoutUser();
 
@@ -46,7 +46,6 @@ class ProfileController extends GetxController {
         colorText: Colors.white,
       );
       storage.remove('token');
-      
     } else {
       Get.snackbar("Error", "Logout Gagal",
           backgroundColor: Colors.red, colorText: Colors.white);
