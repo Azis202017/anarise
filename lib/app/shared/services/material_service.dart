@@ -20,6 +20,7 @@ class MaterialService {
               'Bearer ${storage.read('token')}',
         },
       );
+      print(response.body);
       if (response.statusCode == 200) {
         List? data =
             (json.decode(response.body) as Map<String, dynamic>)['data'];
