@@ -25,7 +25,7 @@ class OnboardingView extends GetView<OnboardingController> {
               pages: [
                 PageViewModel(
                   titleWidget: Text(
-                    'Kuis Singkat',
+                    'Terdapat Fitur Kuis',
                     style: h3Bold.copyWith(
                       color: blueNormal,
                     ),
@@ -41,7 +41,7 @@ class OnboardingView extends GetView<OnboardingController> {
                 ),
                 PageViewModel(
                   titleWidget: Text(
-                    'Forum Diskusi',
+                    'Terdapat Fitur Forum Diskusi',
                     style: h3Bold.copyWith(
                       color: blueNormal,
                     ),
