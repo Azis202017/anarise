@@ -24,68 +24,75 @@ class ProfileView extends GetView<ProfileController> {
             ? const Center(
                 child: CircularProgressIndicator(),
               )
-            : SingleChildScrollView(
-                child: Container(
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              ProfileWidget(
-                                image: '${controller.user.student?.photoUrl}',
-                                width: 75,
-                                height: 75,
-                              ),
-                              const SizedBox(
-                                width: 20,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    '${controller.user.student?.fullname}',
-                                    style: bodyBold.copyWith(
-                                      color: blackColor2,
+            : RefreshIndicator(
+                onRefresh: () async {
+                  controller.userData();
+                },
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                ProfileWidget(
+                                  image: '${controller.user?.student?.photoUrl}',
+                                  width: 75,
+                                  height: 75,
+                                ),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '${controller.user?.student?.fullname}',
+                                      style: bodyBold.copyWith(
+                                        color: blackColor2,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    '${controller.user.student?.studentClass?.name}',
-                                    style: body2Regular.copyWith(
-                                      color: greyColor3,
+                                    Text(
+                                      '${controller.user?.student?.studentClass?.name}',
+                                      style: body2Regular.copyWith(
+                                        color: greyColor3,
+                                      ),
                                     ),
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
-                          const Icon(Icons.edit_square),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const Divider(
-                        color: greyColor3,
-                      ),
-                      const Text('Account'),
-                      const AccountMenuWidget(
-                        leading: Icon(Icons.key, color: blueNormal),
-                        text: 'Ganti Password',
-                        color: blueNormal,
-                      ),
-                      AccountMenuWidget(
-                        leading: const Icon(Icons.logout, color: Colors.red),
-                        text: 'Logout',
-                        color: Colors.red,
-                        onTap: controller.logout,
-                      ),
-                    ],
+                                    Text('${controller.user?.student?.learningStyle?.name}')
+                                  ],
+                                )
+                              ],
+                            ),
+                            const Icon(Icons.edit_square),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        const Divider(
+                          color: greyColor3,
+                        ),
+                        const Text('Account'),
+                        const AccountMenuWidget(
+                          leading: Icon(Icons.key, color: blueNormal),
+                          text: 'Ganti Password',
+                          color: blueNormal,
+                        ),
+                        AccountMenuWidget(
+                          leading: const Icon(Icons.logout, color: Colors.red),
+                          text: 'Logout',
+                          color: Colors.red,
+                          onTap: controller.logout,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -106,7 +113,7 @@ class AccountMenuWidget extends StatelessWidget {
       this.leading,
       this.trailing,
       this.onTap,
-      this.color });
+      this.color});
 
   @override
   Widget build(BuildContext context) {
