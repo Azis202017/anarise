@@ -17,92 +17,112 @@ class DiscussionRoomDetailView extends GetView<DiscussionRoomDetailController> {
     }, builder: (_) {
       return Scaffold(
         appBar: const Header(
-          title: 'Form Diskusi',
+          title: 'Forum Diskusi',
         ),
         body: controller.isLoading
             ? const Center(
                 child: CircularProgressIndicator(),
               )
-            : SingleChildScrollView(
-                child: Column(
-                  children: [
-                    DiscussionRoomWidget(
-                      title: '${controller.detailModel?.title}',
-                      description: '${controller.detailModel?.content}',
-                      nama: '${controller.detailModel?.teacher?.fullname}',
-                      role: 'Guru',
-                      data: controller.detailModel!.replies!.length,
-                      image: '${controller.detailModel!.teacher!.photoUrl}',
-                      textButton: 'Balas',
-                      onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return CustomDialog(
-                                title: 'Beri Tanggapan',
-                                subtitle: 'Tulislah menurut pendapat mu',
-                                widget: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const SizedBox(height: 20),
-                                    InputForm(
-                                      controller: controller.pendapatController,
-                                      hintText: 'Tulis pendapat',
-                                      maxLines: 7,
-                                      keyboardType: TextInputType.multiline,
-                                    ),
-                                    const SizedBox(height: 30),
-                                    SizedBox(
-                                      width: double.infinity,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          SizedBox(
-                                            height: 40,
-                                            child: ElevatedButton(
-                                              onPressed: controller
-                                                  .postAnswerDiscussion,
-                                              child: const Text('Kirimkan'),
-                                            ),
-                                          ),
-                                        ],
+            : RefreshIndicator(
+              onRefresh: () async{
+                controller.fetchDiscussionDetail();
+              },
+              child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      DiscussionRoomWidget(
+                        title: '${controller.detailModel?.title}',
+                        description: '${controller.detailModel?.content}',
+                        nama: '${controller.detailModel?.teacher?.fullname}',
+                        role: 'Guru',
+                        data: controller.detailModel!.replies!.length,
+                        image: '${controller.detailModel!.teacher!.photoUrl}',
+                        textButton: 'Balas',
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return CustomDialog(
+                                  title: 'Beri Tanggapan',
+                                  subtitle: 'Tulislah menurut pendapat mu',
+                                  widget: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      const SizedBox(height: 20),
+                                      InputForm(
+                                        controller: controller.pendapatController,
+                                        hintText: 'Tulis pendapat',
+                                        maxLines: 7,
+                                        keyboardType: TextInputType.multiline,
                                       ),
-                                    ),
-                                    const SizedBox(height: 18),
-                                  ],
-                                ),
-                              );
-                           
-                            });
-                      },
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 24,
+                                      const SizedBox(height: 30),
+                                      SizedBox(
+                                        width: double.infinity,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            SizedBox(
+                                              height: 40,
+                                              child: ElevatedButton(
+                                                onPressed: controller
+                                                    .postAnswerDiscussion,
+                                                child: const Text('Kirimkan'),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(height: 18),
+                                    ],
+                                  ),
+                                );
+                              });
+                        },
                       ),
-                      child: Column(
-                          children:
-                              controller.detailModel!.replies!.map((data) {
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 30.0),
-                          child: DiscussionRoomWidget(
-                            image: '${data.student!.photoUrl}',
-                            nama: '${data.student!.fullname}',
-                            role: 'Murid',
-                            title: '${data.title}',
-                            description: '${data.content}',
-                          ),
-                        );
-                      }).toList()),
-                    ),
-                    const SizedBox(height: 30),
-                  ],
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: 24,
+                        ),
+                        child: Column(
+                            children:
+                                controller.detailModel!.replies!.map((data) {
+                          return Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 30.0),
+                                child: DiscussionRoomWidget(
+                                  image: '${data.student!.photoUrl}',
+                                  nama: '${data.student!.fullname}',
+                                  role: 'Murid',
+                                  title: '${data.title}',
+                                  description: '${data.content}',
+                                ),
+                              ),
+                             data.teacherReply == null ? const SizedBox():  Padding(
+                                padding: const EdgeInsets.only(top: 30.0),
+                                child: DiscussionRoomWidget(
+                                  image: '${controller.detailModel?.teacher?.photoUrl}',
+                                  nama:
+                                      '${controller.detailModel?.teacher?.fullname}',
+                                  role: 'Guru',
+                                  title: '${data.title}',
+                                  description: '${data.teacherReply}',
+            
+                                ),
+                              ),
+                            ],
+                          );
+                        }).toList()),
+                      ),
+                      const SizedBox(height: 30),
+                    ],
+                  ),
                 ),
-              ),
+            ),
       );
     });
   }

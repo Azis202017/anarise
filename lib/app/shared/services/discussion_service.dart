@@ -7,10 +7,10 @@ import '../../data/model/discussion_detail_model.dart';
 import '../../data/model/discussion_model.dart';
 
 class DiscussionService {
-  Future<List<DiscussionModel>> fetchDiscussionData() async {
+  Future<List<DiscussionModel>> fetchDiscussionData({String? id}) async {
     final storage = GetStorage();
     try {
-      Uri uri = Uri.parse('$apiUrl/discussion');
+      Uri uri = Uri.parse('$apiUrl/discussion?material_id=$id');
       http.Response response = await http.get(
         uri,
         headers: {

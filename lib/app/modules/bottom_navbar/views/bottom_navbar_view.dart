@@ -10,8 +10,10 @@ class BottomNavbarView extends GetView<BottomNavbarController> {
   const BottomNavbarView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    Get.put(HomeController());
-    Get.put(ProfileController());
+    Get.put(HomeController(), permanent: true);
+    Get.put(ProfileController(), permanent: true);
+    Get.put(BottomNavbarController(), permanent: true);
+
 
     return GetBuilder<BottomNavbarController>(builder: (context) {
       return Scaffold(

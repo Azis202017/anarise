@@ -7,16 +7,19 @@ import '../theme/font.dart';
 class Header extends StatelessWidget with PreferredSizeWidget {
   final String title;
   final String? subtitle;
+  final String? learnstyle;
   final Widget? leading;
   final bool centerTitle;
   final List<Widget>? actions;
-  const Header(
-      {super.key,
-      required this.title,
-      this.subtitle,
-      this.centerTitle = true,
-      this.actions,
-      this.leading});
+  const Header({
+    super.key,
+    required this.title,
+    this.subtitle,
+    this.learnstyle,
+    this.centerTitle = true,
+    this.actions,
+    this.leading,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +31,7 @@ class Header extends StatelessWidget with PreferredSizeWidget {
       child: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
+        
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -45,6 +49,15 @@ class Header extends StatelessWidget with PreferredSizeWidget {
                 color: blueNormal,
               ),
             ),
+            learnstyle == null
+                ? const SizedBox()
+                : Text(
+                    learnstyle ?? "",
+                    style: GoogleFonts.inter(
+                      fontSize: 14,
+                      color: greyColor3,
+                    ),
+                  ),
           ],
         ),
         centerTitle: centerTitle,
@@ -55,6 +68,6 @@ class Header extends StatelessWidget with PreferredSizeWidget {
   }
 
   @override
-  // 
-  Size get preferredSize => const Size(double.infinity, 100);
+  //
+  Size get preferredSize => const Size(double.infinity, 120);
 }

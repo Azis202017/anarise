@@ -1,18 +1,15 @@
 import 'dart:convert';
 
-import 'package:anarise/app/data/model/material_model.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
-
 import '../../constant/api_url.dart';
+import '../../data/model/leaderboard_model.dart';
 
-
-class MaterialService {
-  Future<List<MaterialModel>> getAllMaterial() async {
-    
+class LeaderboardService {
+  Future<List<Leaderboard>> fetchLeaderboardData({String? type, String? id}) async {
+    final storage = GetStorage();
     try {
-      final storage = GetStorage();
-      Uri uri = Uri.parse('$apiUrl/material');
+      Uri uri = Uri.parse('$apiUrl/leaderboard?type=$type&material_id=$id');
       http.Response response = await http.get(
         uri,
         headers: {
@@ -27,12 +24,12 @@ class MaterialService {
         if (data == null || data.isEmpty) {
           return [];
         } else {
-          return data.map((e) => MaterialModel.fromJson(e)).toList();
+          return data.map((e) => Leaderboard.fromJson(e)).toList();
         }
       }
       return [];
     } catch (e) {
-      throw Exception(e);
+      return throw Exception(e);
     }
   }
 }

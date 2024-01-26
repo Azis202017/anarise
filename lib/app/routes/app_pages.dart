@@ -13,6 +13,8 @@ import '../modules/discussion_room/views/discussion_room_view.dart';
 import '../modules/discussion_room_detail/bindings/discussion_room_detail_binding.dart';
 import '../modules/discussion_room_detail/views/discussion_room_detail_view.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/isi_survey/bindings/isi_survey_binding.dart';
+import '../modules/isi_survey/views/isi_survey_view.dart';
 import '../modules/learn_ability_test/bindings/learn_ability_test_binding.dart';
 import '../modules/learn_ability_test/views/learn_ability_test_view.dart';
 import '../modules/login/bindings/login_binding.dart';
@@ -30,15 +32,19 @@ import '../modules/quiz_score/bindings/quiz_score_binding.dart';
 import '../modules/quiz_score/views/quiz_score_view.dart';
 import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
+import '../modules/splash_screen/bindings/splash_screen_binding.dart';
+import '../modules/splash_screen/views/splash_screen_view.dart';
 import '../modules/summary/bindings/summary_binding.dart';
 import '../modules/summary/views/summary_view.dart';
+import '../modules/welcome_screen/bindings/welcome_screen_binding.dart';
+import '../modules/welcome_screen/views/welcome_screen_view.dart';
 
 part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
 
-  static const initial = Routes.ONBOARDING;
+  static const initial = Routes.WELCOME_SCREEN;
 
   static final routes = [
     GetPage(
@@ -123,6 +129,21 @@ class AppPages {
       name: _Paths.QUESTION_QUIZ,
       page: () => const QuestionQuizView(),
       binding: QuestionQuizBinding(),
+    ),
+    GetPage(
+      name: _Paths.WELCOME_SCREEN,
+      page: () => const WelcomeScreenView(),
+      binding: WelcomeScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.SPLASH_SCREEN,
+      page: () => const SplashScreenView(),
+      binding: SplashScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.ISI_SURVEY,
+      page: () => const IsiSurveyView(),
+      binding: IsiSurveyBinding(),
     ),
   ];
 }

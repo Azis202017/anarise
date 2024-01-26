@@ -12,19 +12,22 @@ class QuestionQuizView extends GetView<QuestionQuizController> {
   const QuestionQuizView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<QuestionQuizController>(builder: (_) {
+    return GetBuilder<QuestionQuizController>(initState: (_) {
+      controller.fetchQuestion();
+    }, builder: (_) {
       QuestionModel? currentQuestion = controller.question.isEmpty
           ? null
           : controller.question[controller.index];
 
-      return Scaffold(
-        appBar: const Header(
-          title: 'Halaman Quiz',
-        ),
-        backgroundColor: Colors.white,
-        body: controller.isLoading
-            ? const Center(child: CircularProgressIndicator())
-            : Column(
+      return controller.isLoading && controller.question.isEmpty
+          ? const Material(child: Center(child: CircularProgressIndicator()))
+          : Scaffold(
+              appBar: Header(
+                title:
+                    '${controller.minutes.toString().padLeft(2, '0')}:${controller.seconds.toString().padLeft(2, '0')}',
+              ),
+              backgroundColor: Colors.white,
+              body: Column(
                 children: [
                   QuestionWidget(
                     indx: controller.index,
@@ -68,11 +71,11 @@ class QuestionQuizView extends GetView<QuestionQuizController> {
                   ),
                 ],
               ),
-        floatingActionButton: NextButton(
-          nextQuestion: controller.nextQuestion,
-          index: controller.index,
-        ),
-      );
+              floatingActionButton: NextButton(
+                nextQuestion: controller.nextQuestion,
+                index: controller.index,
+              ),
+            );
     });
   }
 }

@@ -263,11 +263,11 @@ class ArView extends GetView<ArController> with WidgetsBindingObserver {
                                         children: [
                                           GestureDetector(
                                             child: Container(
-                                              margin : const EdgeInsets.only(top:20),
+                                              margin: const EdgeInsets.only(
+                                                  top: 20),
                                               width: double.infinity,
                                               height: 187,
                                               decoration: BoxDecoration(
-
                                                 image: DecorationImage(
                                                   image: NetworkImage(
                                                     controller
@@ -309,11 +309,12 @@ class ArView extends GetView<ArController> with WidgetsBindingObserver {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
                                 ),
-                                height: 650,
+                                height: 550,
                                 child: InAppWebView(
                                   initialUrlRequest: URLRequest(
                                     url: Uri.parse(
-                                        controller.detailMateri!.arUrl!),
+                                      controller.detailMateri!.arUrl!,
+                                    ),
                                   ),
                                   initialOptions: InAppWebViewGroupOptions(
                                     crossPlatform: InAppWebViewOptions(
@@ -341,9 +342,12 @@ class ArView extends GetView<ArController> with WidgetsBindingObserver {
                           Column(
                             children: [
                               JigsawPuzzle(
-                                gridSize: 3,
-                                image: const AssetImage(
-                                  'assets/img/bagian-jantung.jpg',
+                                gridSize: controller.detailMateri?.title ==
+                                        "Rangka Manusia"
+                                    ? 2
+                                    : 3,
+                                image: AssetImage(
+                                  '${controller.detailMateri!.puzzleUrl}',
                                 ),
                                 onFinished: () {
                                   Get.defaultDialog(

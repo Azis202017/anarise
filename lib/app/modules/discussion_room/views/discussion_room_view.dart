@@ -52,15 +52,22 @@ class DiscussionRoomView extends GetView<DiscussionRoomController> {
                           Lottie.network(
                               'https://res.cloudinary.com/dkkga3pht/raw/upload/v1687060554/80356-online-learning_vhwqc7.json'),
                           const SizedBox(height: 20),
-                          Text(
-                            'Belum terdapat materi',
-                            style: h1Bold,
+                          SizedBox(
+                            width:double.infinity,
+                            child: Text(
+                              'Belum terdapat diskusi',
+                              style: h1Bold,
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                           const SizedBox(height: 10),
-                          Text(
-                            'Yah maaf materi masih belum ada nih dari guru nya , coba  melakukan refresh materi  menekan tombol dibawah ini',
-                            style: bodyRegular,
-                            textAlign: TextAlign.center,
+                          SizedBox(
+                            width: double.infinity,
+                            child: Text(
+                              'Yah maaf diskusi masih belum ada nih dari guru nya , coba  melakukan refresh materi  menekan tombol dibawah ini',
+                              style: bodyRegular,
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                           const SizedBox(height: 30),
                           ElevatedButton(
@@ -73,39 +80,45 @@ class DiscussionRoomView extends GetView<DiscussionRoomController> {
                       ),
                     ),
                   )
-                : SingleChildScrollView(
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: controller.listDiscussion.map((data) {
-                          return Column(
-                            children: [
-                              const SizedBox(height: 30),
-                              DiscussionRoomWidget(
-                                title: '${data.title}',
-                                role: "Guru",
-                                description: '${data.content}',
-                                onPressed: () {
-                                  Get.toNamed(Routes.DISCUSSION_ROOM_DETAIL,
-                                      arguments: {
-                                        'id': data.id,
-                                      });
-                                },
-                                textButton: 'Baca lebih lanjut',
-                              ),
-                              const SizedBox(height: 30),
-                            ],
-                          );
-                        }).toList()
-                        //  const SizedBox(
-                        //   height: 30,
-                        // ),
-                        // Column(
-                        //   children: [
+                : RefreshIndicator(
+                    onRefresh: () async {
+                      controller.fetchListDiscussion();
+                    },
+                    child: SingleChildScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: controller.listDiscussion.map((data) {
+                            return Column(
+                              children: [
+                                const SizedBox(height: 30),
+                                DiscussionRoomWidget(
+                                  title: '${data.title}',
+                                  role: "Guru",
+                                  description: '${data.content}',
+                                  onPressed: () {
+                                    Get.toNamed(Routes.DISCUSSION_ROOM_DETAIL,
+                                        arguments: {
+                                          'id': data.id,
+                                        });
+                                  },
+                                  textButton: 'Baca lebih lanjut',
+                                ),
+                                const SizedBox(height: 30),
+                              ],
+                            );
+                          }).toList()
+                          //  const SizedBox(
+                          //   height: 30,
+                          // ),
+                          // Column(
+                          //   children: [
 
-                        //   ],
-                        // ),
+                          //   ],
+                          // ),
 
-                        ),
+                          ),
+                    ),
                   ),
       );
     });

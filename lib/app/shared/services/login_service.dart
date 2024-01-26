@@ -14,6 +14,7 @@ class LoginService {
         "password": password,
       };
       final response = await http.post(Uri.parse("$apiUrl/login"), body: body);
+      print(response.body);
       if (response.statusCode == 200) {
         storage.write('token', json.decode(response.body)['data']['token']);
 

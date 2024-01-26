@@ -7,12 +7,11 @@ import 'package:http/http.dart' as http;
 import '../../constant/api_url.dart';
 
 class ProfileUserService {
-  Future<ProfileUserModel> getUserData() async {
+  Future<ProfileUserModel?> getUserData() async {
     final storage = GetStorage();
     try {
       Uri uri = Uri.parse('$apiUrl/profile');
-      // http.Response response = await http
-      //     .get(uri, headers: {'Authorization': 'Bearer ${box.read('token')}'});
+     
 
       http.Response response = await http.get(uri,
           headers: {'Authorization': 'Bearer ${storage.read('token')}'});
